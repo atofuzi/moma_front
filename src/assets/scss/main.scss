@@ -1,0 +1,151 @@
+@import './reset.scss';
+// ==============================
+// 変数
+// ==============================
+$background_color: #f2f2f2;
+$main_color: #BFD8D2;
+$sub_color1: #FADE8D;
+$record_tab_color: rgb(200, 200, 200);
+
+$font-color_default: #000;
+$font-color_date: #e37b89; // TODO:リファクタ必要
+$color_corp: #e3a8b1;
+$font-color_sub1: #b6a489;
+
+$font-size_s: 12px;
+$font-size_m: 14px;
+$font-size_default: 16px;
+$font-size_l: 18px;
+$font-size_xl: 24px;
+$font-size_xxl: 30px;
+$font-size_3l: 38px;
+
+$space_s: 5px;
+$space_m: 10px;
+$space_l: 15px;
+$space_xl: 20px;
+$space_xxl: 30px;
+$space_3l: 40px;
+
+$font-family_corp: 'Amatic SC', cursive;
+
+
+// ==================================
+// base
+// ==================================
+html, body {
+  width: 100%;
+  color: $font-color_default;
+  font-size: $font-size_default;
+  line-height: 1.6;
+  font-family: Quicksand, 游ゴシック体, "Yu Gothic", YuGothic, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif; // TODO:リファクタ必要（変数にする）
+  text-size-adjust: 100%;
+  letter-spacing: 0.1em;
+}
+
+body{
+    background-color: $background_color;
+}
+
+h2{
+    border-bottom: solid 5px $main_color;
+    margin-bottom: $space_xl;
+}
+
+a{
+    color: $font-color_default;
+}
+
+img{
+    width: 100%
+}
+
+.contents{
+    margin: $space_m;
+}
+.header{
+    background-color: $main_color;
+}
+
+.record-tab{
+    margin: $space_xl 0 0 0;
+    &-item{
+    background: $record_tab_color;
+    margin-right: $space_s;
+    border: 1px solid $record_tab_color;
+    border-radius: 0 10px 0 0;
+    text-align: center;
+        &__active{
+            background: #fff;
+            border-bottom: none;
+            top: 1px;
+        }
+    }
+}
+.record-view-area{
+    background: #fff;
+    border: solid 1px $record_tab_color;
+    width: 100%;
+    min-height: 800px;
+    padding: $space_l 0;
+}
+
+thead{
+    text-align: center;
+    font-weight: bold;
+}
+
+.journal-input-area{
+     background: #fff; 
+     margin: $space_m 0;
+     padding: $space_m;
+     border-radius: 2px;
+}
+.journal-input-title-debit{
+    background: $main_color;
+}
+
+.journal-input-title-credit{
+    background-color: $sub_color1;
+}
+
+.journal-input-box{
+    width: 90%;
+    height: 30px;  
+}
+
+.btn{
+    margin-right: $space_m;
+}
+.btn-white{
+    background: #fff;
+}
+
+.popup{
+    width: 60%;
+    min-height: 60%;
+    background-color: #f6f5f4;
+    padding: 15px;
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    z-index: 2;
+}
+.popup-cover{
+    background: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.table-row:hover{
+    background: rgba(0,0,0,0.1);
+    cursor: pointer;
+}
