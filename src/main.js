@@ -5,6 +5,19 @@ import '../node_modules/bootstrap/scss/bootstrap.scss'
 import './assets/scss/main.scss'
 import axios from 'axios'
 
+/* // ほとんどのエラーをキャッチ
+Vue.config.errorHandler = function (err, vm, info) {
+  // 2.2.0 以降で使用できます。
+  alert(err, vm, info);
+}
+// 残りのエラーをキャッチ
+window.addEventListener("error", event => {
+  alert(event.error);
+});
+window.addEventListener("unhandledrejection", event => {
+  alert(event.reason);
+});
+ */
 Vue.config.productionTip = false
 
 Vue.prototype.$axios = axios;

@@ -1,15 +1,21 @@
 <template>
   <div>
     <h2>仕訳帳登録</h2>
-    <button v-on:click="add" class="btn btn-outline-dark btn-white btn-sm">テーブル追加</button>
+    <button v-on:click="add" class="btn btn-outline-dark btn-white btn-sm">
+      テーブル追加
+    </button>
     <button
       v-if="nextTableId > 1"
       @click="tableDelete"
       class="btn btn-outline-dark btn-white btn-sm"
-    >テーブル削除</button>
+    >
+      テーブル削除
+    </button>
     <div class="container-fuild">
       <div class="col-7 journal-input-area">
-        <li v-for="(error, index) in errors" :key="index" class="text-danger">{{error.message}}</li>
+        <li v-for="(error, index) in errors" :key="index" class="text-danger">
+          {{ error.message }}
+        </li>
         <JournalInputComponent
           v-for="(table, index) in journalTables"
           :accountDate="data.accountDate"
@@ -21,10 +27,12 @@
           :suppliers="suppliers"
           :key="table.id"
           :count="table.id"
-          v-on:change="updateJournalData(table.id,$event)"
+          v-on:change="updateJournalData(table.id, $event)"
         ></JournalInputComponent>
       </div>
-      <button @click="register()" class="btn btn-dark btn-sm">データを登録</button>
+      <button @click="register()" class="btn btn-dark btn-sm">
+        データを登録
+      </button>
     </div>
   </div>
 </template>

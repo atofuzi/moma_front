@@ -1,16 +1,26 @@
 <template>
   <div>
     <h2>仕訳帳修正</h2>
-    <button v-on:click="add" class="btn btn-outline-dark btn-white btn-sm">テーブル追加</button>
+    <button v-on:click="add" class="btn btn-outline-dark btn-white btn-sm">
+      テーブル追加
+    </button>
     <button
       v-if="nextTableId > 1"
       @click="tableDelete"
       class="btn btn-outline-dark btn-white btn-sm"
-    >テーブル削除</button>
-    <button @click="editJournal()" class="btn btn-warning btn-sm">データを修正</button>
-    <button @click="deleteJournal()" class="btn btn-danger btn-sm">データを削除</button>
+    >
+      テーブル削除
+    </button>
+    <button @click="editJournal()" class="btn btn-warning btn-sm">
+      データを修正
+    </button>
+    <button @click="deleteJournal()" class="btn btn-danger btn-sm">
+      データを削除
+    </button>
     <div class="journal-input-area">
-      <li v-for="(error, index) in errors" :key="index" class="text-danger">{{error.message}}</li>
+      <li v-for="(error, index) in errors" :key="index" class="text-danger">
+        {{ error.message }}
+      </li>
       <JournalInputTables
         v-for="(table, index) in journalTables"
         :accountDate="data.accountDate"
@@ -21,7 +31,7 @@
         :suppliers="suppliers"
         :key="table.id"
         :count="table.id"
-        v-on:change="updateJournalData(table.id,$event)"
+        v-on:change="updateJournalData(table.id, $event)"
       ></JournalInputTables>
     </div>
   </div>
@@ -61,7 +71,10 @@ export default {
       this.journalData.debit.length > 1 ||
       this.journalData.credit.length > 1
     ) {
-      this.journalTables.push({ id: this.nextTableId });
+      for (let i = 0; i < this.journalData.debit.length; i++) {
+        this.journalTables.push({ id: this.nextTableId });
+        this.nextTableId++;
+      }
     }
   },
 

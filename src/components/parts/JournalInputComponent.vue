@@ -34,7 +34,9 @@
                 v-for="(value, index) in journalSubjects"
                 :key="index"
                 :value="value.accountSubjectId"
-              >{{ value.accountSubject }}</option>
+              >
+                {{ value.accountSubject }}
+              </option>
             </select>
           </td>
           <th>会計科目</th>
@@ -50,12 +52,16 @@
                 v-for="(value, index) in journalSubjects"
                 :key="index"
                 :value="value.accountSubjectId"
-              >{{ value.accountSubject }}</option>
+              >
+                {{ value.accountSubject }}
+              </option>
             </select>
           </td>
         </tr>
         <tr>
-          <th v-if="isActiveDebit || isActiveCredit">{{ addInfoTitleDebit }}</th>
+          <th v-if="isActiveDebit || isActiveCredit">
+            {{ addInfoTitleDebit }}
+          </th>
           <td v-if="isActiveDebit">
             <select
               class="journal-input-box"
@@ -69,7 +75,9 @@
                 v-for="(value, index) in addListsDebit"
                 :key="index"
                 :value="value.id"
-              >{{ value.name }}</option>
+              >
+                {{ value.name }}
+              </option>
             </select>
           </td>
           <td v-else-if="isActiveCredit"></td>
@@ -86,7 +94,9 @@
                 v-for="(value, index) in addListsCredit"
                 :key="index"
                 :value="value.id"
-              >{{ value.name }}</option>
+              >
+                {{ value.name }}
+              </option>
             </select>
           </td>
         </tr>
@@ -160,13 +170,6 @@ export default {
     banks: Array,
     suppliers: Array,
     count: Number,
-  },
-  beforeMount() {
-    console.log("マウント前です");
-    console.log(this.debit);
-    if (this.debit.addInfoId !== "" || this.credit.addInfoId) {
-      this.addSubject();
-    }
   },
   methods: {
     change: function (event, journalType) {

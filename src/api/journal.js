@@ -19,26 +19,22 @@ export function getSupplierLists() {
 }
 
 // 仕訳データのデータの登録
-export function registerJournal(journalData) {
+export async function registerJournal(journalData) {
     const requestData = transformJournalDataToRequestData(journalData);
-    return axios.post('journal_register', requestData);
+    return await axios.post('journal_register', requestData);
 }
 
 // 修正する仕訳データの取得
-
-export function getJournalUnit(data) {
-    return myAxios.get('journal_edit', { params: { unitNumber: data } })
+export async function getJournalUnit(data) {
+    return await myAxios.get('journal_edit', { params: { unitNumber: data } })
 
 }
 
 // 修正後の仕訳データの登録
-export function updateJournal(journalData) {
-    console.log('修正データの送信')
-    console.log(journalData)
+export async function updateJournal(journalData) {
     const requestData = transformJournalDataToRequestData(journalData);
     requestData['ids'] = journalData.ids;
-    console.log(requestData)
-    return axios.post('journal_update', requestData);
+    return await axios.post('journal_update', requestData);
 }
 
 // 仕訳データの削除

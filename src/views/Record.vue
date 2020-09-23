@@ -1,17 +1,22 @@
 <template>
   <div>
     <h2>帳票確認</h2>
-    <DatePicker v-model="date" minimum-view="month" format="yyyy年MM月" :language="ja"></DatePicker>
+    <DatePicker
+      v-model="date"
+      minimum-view="month"
+      format="yyyy年MM月"
+      :language="ja"
+    ></DatePicker>
     <div class="container-fuild">
       <div class="row record-tab">
         <div
           class="col record-tab-item"
-          :class="{'record-tab-item__active': $route.path === item.url }"
-          v-for="(item,index) in recordItems"
+          :class="{ 'record-tab-item__active': $route.path === item.url }"
+          v-for="(item, index) in recordItems"
           :key="index"
         >
           <router-link :to="item.url" exact>
-            <p>{{item.title}}</p>
+            <p>{{ item.title }}</p>
           </router-link>
         </div>
       </div>
@@ -34,12 +39,12 @@ export default {
     return {
       recordItems: [
         { title: "仕訳帳", url: "/record/journal-book" },
-        { title: "現金出納帳", url: "/record/chash-book" },
+        { title: "現金出納帳", url: "/record/cash-book" },
         { title: "預金出納帳", url: "/record/deposit-book" },
         { title: "売掛帳", url: "/record/receivable-book" },
         { title: "買掛帳", url: "/record/payable-book" },
         { title: "経費帳", url: "/record/expenses-book" },
-        { title: "総勘定元帳", url: "/record/total-accout-book" },
+        { title: "総勘定元帳", url: "/record/total-account-book" },
       ],
       date: new Date(),
       ja: ja,

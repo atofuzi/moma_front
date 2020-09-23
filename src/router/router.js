@@ -5,7 +5,10 @@ import JournalRegister from "../views/JournalRegister.vue"
 import Login from "../views/Login.vue"
 import Record from "../views/Record.vue"
 import JournalBook from "../components/parts/JournalBook.vue"
-import ExpensesBook from "../components/parts/ExpensesBook.vue"
+import JournalPurPoseBook from "../components/parts/GeneralPurPoseBook.vue"
+import CashBook from "../components/parts/CashBook.vue"
+import DepositBook from "../components/parts/DepositBook.vue"
+import TotalAccountBook from "../components/parts/TotalAccountBook.vue"
 Vue.use(Router);
 
 
@@ -38,9 +41,30 @@ export default new Router({
                 },
                 {
                     path: "expenses-book",
-                    component: ExpensesBook
+                    component: JournalPurPoseBook
+                },
+                {
+                    path: "cash-book",
+                    component: CashBook
+                },
+                {
+                    path: "deposit-book",
+                    component: DepositBook
+                },
+                {
+                    path: "receivable-book",
+                    component: JournalPurPoseBook
+                },
+                {
+                    path: "payable-book",
+                    component: JournalPurPoseBook
+                },
+                {
+                    path: "total-account-book",
+                    component: TotalAccountBook
                 }
             ]
+
         }
     ]
 })
