@@ -195,3 +195,7 @@ thead {
   background: rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
+
+.book-title {
+  background: #F2F2F2;
+}

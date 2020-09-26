@@ -6,6 +6,7 @@ $background_color: #f2f2f2;
 $main_color: #BFD8D2;
 $sub_color1: #FADE8D;
 $record_tab_color: rgb(200, 200, 200);
+$book_title_color:  #F2F2F2;
 
 $font-color_default: #000;
 $font-color_date: #e37b89; // TODO:リファクタ必要
@@ -166,4 +167,8 @@ thead{
 .table-row:hover{
     background: rgba(0,0,0,0.1);
     cursor: pointer;
+}
+
+.book-title{
+    background: $book_title_color;
 }

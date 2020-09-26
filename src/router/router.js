@@ -7,7 +7,7 @@ import Record from "../views/Record.vue"
 import JournalBook from "../components/parts/JournalBook.vue"
 import JournalPurPoseBook from "../components/parts/GeneralPurPoseBook.vue"
 import CashBook from "../components/parts/CashBook.vue"
-import DepositBook from "../components/parts/DepositBook.vue"
+import DepositBook from "../components/parts/depositbook/DepositBook.vue"
 import TotalAccountBook from "../components/parts/TotalAccountBook.vue"
 Vue.use(Router);
 

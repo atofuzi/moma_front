@@ -22,7 +22,15 @@ Vue.config.productionTip = false
 
 Vue.prototype.$axios = axios;
 
+Vue.filter('numberFormat', function (value) {
+  if (!value) { return null }
+  return value.toString().replace(/([0-9]+?)(?=(?:[0-9]{3})+$)/g, '$1,');
+});
+
 new Vue({
   router: router,
   render: h => h(App),
 }).$mount('#app')
+
+
+
