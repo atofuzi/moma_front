@@ -66,6 +66,7 @@ export default {
     JournalInputTables,
   },
   created: function () {
+    this.$emit("closeLoading");
     this.data = this.journalData;
     if (
       this.journalData.debit.length > 1 ||

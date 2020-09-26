@@ -1,5 +1,7 @@
 <template>
-  <div>これは預金出納帳です</div>
+  <div>
+    <table></table>
+  </div>
 </template>
 
 <script>

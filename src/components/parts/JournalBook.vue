@@ -1,5 +1,8 @@
 <template>
   <div>
+    <!-- 編集画面読み込みアイコン -->
+    <ScreenLoading :isShow="isScreenLoading"></ScreenLoading>
+    <!-- 編集画面のポップアップ -->
     <div class="popup" v-if="pupupActive">
       <JournalEditer
         :journalData="journalData"
@@ -7,9 +10,15 @@
         :journalSubjects="journalSubjects"
         :suppliers="suppliers"
         v-on:reload="reloadTable($event)"
+        v-on:closeLoading="closeLoading()"
       ></JournalEditer>
     </div>
-    <div class="popup-cover show-pupup-cover" v-if="pupupActive" @click="popupClose"></div>
+    <div
+      class="popup-cover show-pupup-cover"
+      v-if="pupupActive"
+      @click="popupClose"
+    ></div>
+    <!-- 会計データテーブル -->
     <div class="container-fuild">
       <div class="col-10">
         <table class="table table-sm table-bordered record-table">
@@ -22,25 +31,41 @@
               <th>貸方</th>
             </tr>
           </thead>
-          <tbody>
+          <!-- 会計データ読み込みのアイコン -->
+          <tbody v-if="isTableLoading">
+            <tr>
+              <th colspan="6">
+                <VueLoading type="barsCylon" color="#c8c8c8"></VueLoading>
+              </th>
+            </tr>
+          </tbody>
+          <tbody v-else>
             <tr
               v-for="(journalData, index) in journalDataLists"
               :key="index"
               @click="journalEdit(index)"
               class="table-row"
             >
-              <th>{{journalData.accountDate}}</th>
+              <th>{{ journalData.accountDate }}</th>
               <th
-                :class="{'text-right':journalData.journalType === credit}"
+                :class="{ 'text-right': journalData.journalType === credit }"
                 colspan="2"
-              >{{ '('+journalData.accountSubject+')'+journalData.summary }}</th>
-              <th class="text-center">{{journalData.gentianNumber}}</th>
-              <th
-                class="text-right"
-              >{{ (journalData.journalType === debit)? journalData.amount: "" }}</th>
-              <th
-                class="text-right"
-              >{{ (journalData.journalType === credit)? journalData.amount: "" }}</th>
+              >
+                {{
+                  "(" + journalData.accountSubject + ")" + journalData.summary
+                }}
+              </th>
+              <th class="text-center">{{ journalData.gentianNumber }}</th>
+              <th class="text-right">
+                {{
+                  journalData.journalType === debit ? journalData.amount : ""
+                }}
+              </th>
+              <th class="text-right">
+                {{
+                  journalData.journalType === credit ? journalData.amount : ""
+                }}
+              </th>
             </tr>
           </tbody>
         </table>
@@ -58,14 +83,16 @@ import {
   getSupplierLists,
   getJournalUnit,
 } from "@/api/journal.js";
-//import ExpensesBook from "@/components/parts/ExpensesBook";
+import ScreenLoading from "@/components/utils/ScreenLoadingComponent.vue";
+import { VueLoading } from "vue-loading-template";
 export default {
   props: {
     date: Date,
   },
   components: {
-    //ExpensesBook,
     JournalEditer,
+    ScreenLoading,
+    VueLoading,
   },
   data() {
     return {
@@ -77,14 +104,18 @@ export default {
       credit: 1,
       debit: 0,
       pupupActive: false,
+      isTableLoading: false,
+      isScreenLoading: false,
     };
   },
   created() {
     console.log("仕訳帳クリエイト");
+    this.isTableLoading = true;
     getJournalBook(this.date)
       .then((response) => {
         console.log(response);
         this.journalDataLists = response.data;
+        this.isTableLoading = false;
       })
       .catch((error) => {
         console.log(error);
@@ -124,10 +155,12 @@ export default {
   watch: {
     date: function () {
       console.log("日付選択されました" + this.date);
+      this.isTableLoading = true;
       getJournalBook(this.date)
         .then((response) => {
           console.log(response);
           this.journalDataLists = response.data;
+          this.isTableLoading = false;
         })
         .catch((error) => {
           console.log(error);
@@ -136,6 +169,7 @@ export default {
   },
   methods: {
     journalEdit: function (index) {
+      this.isScreenLoading = true;
       getJournalUnit(this.journalDataLists[index]["unitNumber"])
         .then((response) => {
           console.log(response.data);
@@ -152,15 +186,21 @@ export default {
     },
     reloadTable: function (message) {
       window.alert(message);
+      this.isTableLoading = true;
       getJournalBook(this.date)
         .then((response) => {
           console.log(response);
           this.journalDataLists = response.data;
           this.pupupActive = false;
+          this.isTableLoading = false;
         })
         .catch((error) => {
           console.log(error);
         });
+    },
+    closeLoading: function () {
+      console.log("発火しました");
+      this.isScreenLoading = false;
     },
   },
 };

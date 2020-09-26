@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- 仕訳帳データ登録中の読み込みアイコン -->
+    <ScreenLoading :isShow="isScreenLoading"></ScreenLoading>
     <h2>仕訳帳登録</h2>
     <button v-on:click="add" class="btn btn-outline-dark btn-white btn-sm">
       テーブル追加
@@ -45,6 +47,7 @@ import {
   getSupplierLists,
   registerJournal,
 } from "@/api/journal.js";
+import ScreenLoading from "@/components/utils/ScreenLoadingComponent.vue";
 
 export default {
   data() {
@@ -75,10 +78,12 @@ export default {
       banks: [],
       suppliers: [],
       errors: [],
+      isScreenLoading: false,
     };
   },
   components: {
     JournalInputComponent,
+    ScreenLoading,
   },
   created: function () {
     console.log("会計科目情報取得");
@@ -154,6 +159,7 @@ export default {
       }
     },
     register: function () {
+      this.isScreenLoading = true;
       console.log("会計データ登録");
 
       registerJournal(this.data)
@@ -169,6 +175,7 @@ export default {
         });
     },
     reset: function () {
+      this.isScreenLoading = false;
       this.data = null;
       this.journalTables = [];
       this.data = {
