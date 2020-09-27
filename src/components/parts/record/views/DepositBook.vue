@@ -15,7 +15,12 @@
 
 <script>
 import DepositBookTable from "@/components/parts/record/tables/DepositBookTableComponent.vue";
+import { getDepositBook } from "@/api/record.js";
+
 export default {
+  props: {
+    accountMonth: Date,
+  },
   components: {
     DepositBookTable,
   },
@@ -76,6 +81,30 @@ export default {
         },
       ],
     };
+  },
+  watch: {
+    accountMonth: function () {
+      console.log("日付選択されました" + this.accountDate);
+      getDepositBook(this.accountMonth)
+        .then((response) => {
+          console.log(response.data);
+          this.depositBookDataLists = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  created() {
+    console.log(this.accountMonth);
+    getDepositBook(this.accountMonth)
+      .then((response) => {
+        console.log(response.data);
+        this.depositBookDataLists = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 };
 </script>
