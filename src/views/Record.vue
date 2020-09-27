@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="record-view-area">
-        <router-view :date="date"></router-view>
+        <router-view :accountMonth="date"></router-view>
       </div>
     </div>
   </div>

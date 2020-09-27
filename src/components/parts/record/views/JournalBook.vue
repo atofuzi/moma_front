@@ -87,7 +87,7 @@ import ScreenLoading from "@/components/utils/ScreenLoadingComponent.vue";
 import { VueLoading } from "vue-loading-template";
 export default {
   props: {
-    date: Date,
+    accountMonth: Date,
   },
   components: {
     JournalEditer,
@@ -111,7 +111,7 @@ export default {
   created() {
     console.log("仕訳帳クリエイト");
     this.isTableLoading = true;
-    getJournalBook(this.date)
+    getJournalBook(this.accountMonth)
       .then((response) => {
         console.log(response);
         this.journalDataLists = response.data;
@@ -154,9 +154,9 @@ export default {
   },
   watch: {
     date: function () {
-      console.log("日付選択されました" + this.date);
+      console.log("日付選択されました" + this.accountMonth);
       this.isTableLoading = true;
-      getJournalBook(this.date)
+      getJournalBook(this.accountMonth)
         .then((response) => {
           console.log(response);
           this.journalDataLists = response.data;
@@ -187,7 +187,7 @@ export default {
     reloadTable: function (message) {
       window.alert(message);
       this.isTableLoading = true;
-      getJournalBook(this.date)
+      getJournalBook(this.accountMonth)
         .then((response) => {
           console.log(response);
           this.journalDataLists = response.data;
