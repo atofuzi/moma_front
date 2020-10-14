@@ -24,7 +24,7 @@
           <th colspan="2" class="text-right">先月繰越</th>
           <th></th>
           <th></th>
-          <th class="text-right">{{ tableData.lastBalance }}</th>
+          <th class="text-right">{{ tableData.lastBalance | numberFormat }}</th>
         </tr>
         <tr v-for="(item, itemIndex) in tableData.items" :key="itemIndex">
           <th>{{ item.accountDate }}</th>

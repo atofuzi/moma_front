@@ -28,7 +28,9 @@
           <th></th>
           <th></th>
           <th></th>
-          <th class="text-right">{{ depositBookData.lastBalance }}</th>
+          <th class="text-right">
+            {{ depositBookData.lastBalance | numberFormat }}
+          </th>
         </tr>
         <tr v-for="(item, itemIndex) in depositBookData.items" :key="itemIndex">
           <th>{{ item.accountDate }}</th>
