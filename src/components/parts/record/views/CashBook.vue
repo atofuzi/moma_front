@@ -4,9 +4,8 @@
     <div class="container-fuild">
       <div class="col-10">
         <CashBookTable
-          v-for="(cashBookData, tableIndex) in cashBookDataLists"
-          :key="tableIndex"
           :cashBookData="cashBookData"
+          :isTableLoading="isTableLoading"
         ></CashBookTable>
       </div>
     </div>
@@ -15,39 +14,42 @@
 
 <script>
 import CashBookTable from "@/components/parts/record/tables/CashBookTableComponent.vue";
+import { getCashBook } from "@/api/record.js";
 export default {
+  props: {
+    accountMonth: Date,
+  },
   components: {
     CashBookTable,
   },
   data() {
     return {
-      cashBookDataLists: [
-        {
-          lastBalance: 0,
-          totalBalance: 20000,
-          items: [
-            {
-              id: 1,
-              accountDate: "2020-09-13",
-              summary: "アドセンスデポジット",
-              targetAccountSubject: "普通預金",
-              journalType: 0,
-              amount: 40000,
-              balance: 40000,
-            },
-            {
-              id: 2,
-              accountDate: "2020-09-23",
-              summary: "イオンクレジット支払い",
-              targetAccountSubject: "売上",
-              journalType: 1,
-              amount: 20000,
-              balance: 20000,
-            },
-          ],
-        },
-      ],
+      cashBookData: {},
+      isTableLoading: true,
     };
+  },
+  watch: {
+    accountMonth: function () {
+      this.get();
+    },
+  },
+  created() {
+    this.get();
+  },
+  methods: {
+    get() {
+      this.isTableLoading = true;
+      getCashBook(this.accountMonth)
+        .then((response) => {
+          console.log(response.data);
+          this.cashBookData = response.data;
+          this.isTableLoading = false;
+        })
+        .catch((error) => {
+          console.log(error);
+          this.isTableLoading = false;
+        });
+    },
   },
 };
 </script>

@@ -12,7 +12,14 @@
         </tr>
       </thead>
       <!-- 会計データ読み込みのアイコン -->
-      <tbody>
+      <tbody v-if="isTableLoading">
+        <tr>
+          <th colspan="6">
+            <VueLoading type="barsCylon" color="#c8c8c8"></VueLoading>
+          </th>
+        </tr>
+      </tbody>
+      <tbody v-else>
         <tr>
           <th></th>
           <th colspan="2" class="text-right">先月繰越</th>
@@ -58,9 +65,14 @@
 </template>
 
 <script>
+import { VueLoading } from "vue-loading-template";
 export default {
   props: {
     cashBookData: Object,
+    isTableLoading: Boolean,
+  },
+  components: {
+    VueLoading,
   },
 };
 </script>
