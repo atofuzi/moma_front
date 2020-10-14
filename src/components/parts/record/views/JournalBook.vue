@@ -153,7 +153,7 @@ export default {
       });
   },
   watch: {
-    date: function () {
+    accountMonth: function () {
       console.log("日付選択されました" + this.accountMonth);
       this.isTableLoading = true;
       getJournalBook(this.accountMonth)
