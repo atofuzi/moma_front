@@ -23,7 +23,7 @@ Vue.config.productionTip = false
 Vue.prototype.$axios = axios;
 
 Vue.filter('numberFormat', function (value) {
-  if (!value) { return null }
+  if (!value) { return 0 }
   return value.toString().replace(/([0-9]+?)(?=(?:[0-9]{3})+$)/g, '$1,');
 });
 
