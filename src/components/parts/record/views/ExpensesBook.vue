@@ -7,6 +7,7 @@
           v-for="(expensesData, tableIndex) in expensesDataLists"
           :key="tableIndex"
           :tableData="expensesData"
+          :isTableLoading="isTableLoading"
         ></GeneralPurPoseBookTable>
       </div>
     </div>
@@ -26,6 +27,7 @@ export default {
   data() {
     return {
       expensesDataLists: [],
+      isTableLoading: true,
     };
   },
   created() {
@@ -40,13 +42,16 @@ export default {
   },
   methods: {
     get: function () {
+      this.isTableLoading = true;
       getExpensesBook(this.accountMonth)
         .then((response) => {
           console.log(response);
           this.expensesDataLists = response.data;
+          this.isTableLoading = false;
         })
         .catch((error) => {
           console.log(error);
+          this.isTableLoading = false;
         });
     },
   },

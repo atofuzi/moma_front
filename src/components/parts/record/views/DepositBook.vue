@@ -7,6 +7,7 @@
           v-for="(depositBookData, tableIndex) in depositBookDataLists"
           :key="tableIndex"
           :depositBookData="depositBookData"
+          :isTableLoading="isTableLoading"
         ></DepositBookTable>
       </div>
     </div>
@@ -27,31 +28,33 @@ export default {
   data() {
     return {
       depositBookDataLists: [],
+      isTableLoading: true,
     };
   },
   watch: {
     accountMonth: function () {
       console.log("日付選択されました" + this.accountDate);
+      this.get();
+    },
+  },
+  created() {
+    console.log("預金出納帳データ取得開始");
+    this.get();
+  },
+  methods: {
+    get: function () {
+      this.isTableLoading = true;
       getDepositBook(this.accountMonth)
         .then((response) => {
           console.log(response.data);
           this.depositBookDataLists = response.data;
+          this.isTableLoading = false;
         })
         .catch((error) => {
           console.log(error);
+          this.isTableLoading = false;
         });
     },
-  },
-  created() {
-    console.log(this.accountMonth);
-    getDepositBook(this.accountMonth)
-      .then((response) => {
-        console.log(response.data);
-        this.depositBookDataLists = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   },
 };
 </script>
