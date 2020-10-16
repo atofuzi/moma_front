@@ -14,7 +14,7 @@
       <!-- 会計データ読み込みのアイコン -->
       <tbody v-if="isTableLoading">
         <tr>
-          <th colspan="6">
+          <th colspan="7">
             <VueLoading type="barsCylon" color="#c8c8c8"></VueLoading>
           </th>
         </tr>
