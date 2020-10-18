@@ -27,7 +27,11 @@ const getDateFromTo = (date) => {
     let monthFrom = 1 + date.getMonth();
     // 月(to) １ヶ月分取得
     let monthTo = 2 + date.getMonth();
-
+    // 年を越す場合
+    if (monthTo > 12) {
+        year = year + 1;
+        monthTo = 1;
+    }
     monthFrom = ('0' + monthFrom).slice(-2);
     monthTo = ('0' + monthTo).slice(-2);
 
@@ -80,4 +84,9 @@ const transformJournalDataToRequestData = (journalData) => {
     return requestData;
 }
 
-export { mapKeysCamelCase, mapKeysSnakeCase, getDateFromTo, transformJournalDataToRequestData }
+const transformDate = (date) => {
+    let split_date = date.split("-");
+    return split_date[1] + "/" + split_date[2];
+}
+
+export { mapKeysCamelCase, mapKeysSnakeCase, getDateFromTo, transformJournalDataToRequestData, transformDate }

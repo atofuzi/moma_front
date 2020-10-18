@@ -1,6 +1,9 @@
 <template>
   <div>
-    <table class="table table-sm table-bordered record-table">
+    <table
+      class="table table-sm table-bordered record-table"
+      :class="activeClass"
+    >
       <thead class="book-title">
         <tr>
           <th colspan="6">
@@ -12,8 +15,8 @@
         <tr>
           <th>日付</th>
           <th colspan="2">摘要</th>
-          <th>入金額</th>
-          <th>出金額</th>
+          <th>借方</th>
+          <th>貸方</th>
           <th>残高</th>
         </tr>
       </thead>
@@ -34,13 +37,30 @@
           <th class="text-right">{{ tableData.lastBalance | numberFormat }}</th>
         </tr>
         <tr v-for="(item, itemIndex) in tableData.items" :key="itemIndex">
-          <th>{{ item.accountDate }}</th>
+          <th>{{ transformDate(item.accountDate) }}</th>
           <th colspan="2">{{ item.summary }}</th>
+          <!--
+            bsPLType,journalType
+            0,0 => amountを借方に表示 
+            0,1 => amountを貸方に表示
+            1,0 => amountを借方に表示
+            1,1 => amountを貸方に表意
+          -->
           <th class="text-right">
-            {{ item.journalType === 0 ? item.amount : "" | numberFormat }}
+            {{
+              (tableData.bsPlType === 0 && item.journalType === 0) ||
+              (tableData.bsPlType === 1 && item.journalType === 0)
+                ? item.amount
+                : "" | numberFormat
+            }}
           </th>
           <th class="text-right">
-            {{ item.journalType === 1 ? item.amount : "" | numberFormat }}
+            {{
+              (tableData.bsPlType === 0 && item.journalType === 1) ||
+              (tableData.bsPlType === 1 && item.journalType === 1)
+                ? item.amount
+                : "" | numberFormat
+            }}
           </th>
           <th class="text-right">{{ item.balance | numberFormat }}</th>
         </tr>
@@ -68,13 +88,23 @@
 
 <script>
 import { VueLoading } from "vue-loading-template";
+import { transformDate } from "@/utils/lib.js";
 export default {
   props: {
     tableData: Object,
     isTableLoading: Boolean,
+    activeClass: {
+      type: String,
+      default: "",
+    },
   },
   components: {
     VueLoading,
+  },
+  data() {
+    return {
+      transformDate: transformDate,
+    };
   },
 };
 </script>

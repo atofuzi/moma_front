@@ -48,8 +48,30 @@ export function getExpensesBook(date) {
 }
 
 // 総勘定元帳画面
-// 総勘定元帳データの取得
-export function getTotalAccountBook(date) {
-    const dateFromTo = getDateFromTo(date);
-    return axios.get('record_total_account', { params: dateFromTo });
+export class GetTotalAccountBook {
+    constructor(date) {
+        this.date = date;
+    }
+    // 総勘定元帳(資産)データの取得
+    assets() {
+        console.log(this.data);
+        const dateFromTo = getDateFromTo(this.date);
+        return axios.get('record_total_assets', { params: dateFromTo });
+    }
+    // 総勘定元帳（負債・資本）データの取得
+    liabilitiesCapital() {
+        const dateFromTo = getDateFromTo(this.date);
+        return axios.get('record_total_liabilities_capital', { params: dateFromTo });
+    }
+    // 総勘定元帳（経費・費用）データの取得
+    cost() {
+        const dateFromTo = getDateFromTo(this.date);
+        return axios.get('record_total_cost', { params: dateFromTo });
+    }
+    // 総勘定元帳（収益）データの取得
+    earnings() {
+        const dateFromTo = getDateFromTo(this.date);
+        return axios.get('record_total_earnings', { params: dateFromTo });
+    }
+    
 }
