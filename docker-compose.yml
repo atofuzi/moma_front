@@ -1,0 +1,41 @@
+version: "3.1"
+volumes:
+  node:
+services:
+  moma-proxy:
+    build:
+      context: ./
+      dockerfile: ./docker/nginx/Dockerfile
+    container_name: moma-proxy
+    networks:
+      - moma-network
+    ports:
+      - "8081:80"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/index.php:/etc/nginx/html/index.php
+    environment:
+      - TZ=Asia/Tokyo
+    restart: always
+
+  moma-front:
+    build:
+      context: ./
+      dockerfile: ./docker/vue/Dockerfile
+    container_name: moma-front
+    networks:
+      - moma-network
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./application:/var/www/
+      - node:/var/www/node_modules
+    working_dir: /var/www/
+    tty: true
+    restart: always
+    command: sh -c "yarn install && yarn serve"
+
+networks:
+  moma-network:
+    name: moma-network

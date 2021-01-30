@@ -3,7 +3,7 @@ import myAxios from "../utils/api.js";
 
 
 export function getToken(param) {
-    const url = 'http://localhost:8888/accounting_software/public/oauth/token';
+    const url = 'http://localhost:8081/oauth/token';
     return axios.post(url, param);
 }
 
