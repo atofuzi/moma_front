@@ -58,12 +58,16 @@
               <th class="text-center">{{ journalData.gentianNumber }}</th>
               <th class="text-right">
                 {{
-                  journalData.journalType === debit ? journalData.amount : ""
+                  journalData.journalType === debit
+                    ? journalData.amount
+                    : 0 | numberFormat
                 }}
               </th>
               <th class="text-right">
                 {{
-                  journalData.journalType === credit ? journalData.amount : ""
+                  journalData.journalType === credit
+                    ? journalData.amount
+                    : 0 | numberFormat
                 }}
               </th>
             </tr>
