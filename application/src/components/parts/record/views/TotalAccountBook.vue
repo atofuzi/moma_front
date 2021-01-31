@@ -1,9 +1,9 @@
 <template>
   <div>
-    <!-- 売掛帳テーブル -->
     <div class="container-fuild">
       <div class="row">
         <div class="col-4">
+          <!-- 資産エリア -->
           <GeneralPurPoseBookTable
             v-for="(accountsReceivableData, tableIndex) in assetsDataLists"
             :key="tableIndex"
@@ -13,9 +13,11 @@
           ></GeneralPurPoseBookTable>
         </div>
         <div class="col-4">
+          <!-- 負債・資本エリア -->
           <GeneralPurPoseBookTable
-            v-for="(liabilitiesCapitalData,
-            tableIndex) in liabilitiesCapitalDataLists"
+            v-for="(
+              liabilitiesCapitalData, tableIndex
+            ) in liabilitiesCapitalDataLists"
             :key="tableIndex"
             :tableData="liabilitiesCapitalData"
             :isTableLoading="isTableLoading"
@@ -23,6 +25,7 @@
           ></GeneralPurPoseBookTable>
         </div>
         <div class="col-4">
+          <!-- 売上・経費エリア -->
           <GeneralPurPoseBookTable
             v-for="earningsData in earningsDataLists"
             :key="earningsData.tableTitle"
